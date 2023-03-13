@@ -4,6 +4,15 @@
 
 ## Usage
 
+Install it by `cargo install` and execute:
+
+```shell
+cargo install --path .
+cmdw --command ls --addr 127.0.0.1 --port 8082
+```
+
+Or execute it by `cargo run`:
+
 ```shell
 cargo run -- --command ls --addr 127.0.0.1 --port 8082
 ```
