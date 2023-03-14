@@ -1,6 +1,9 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
-
 use clap::Parser;
+use serde::Deserialize;
+use std::io::BufReader;
+use std::io::prelude::*;
+use std::process::{Command, Stdio};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -14,12 +17,6 @@ struct Args {
     #[arg(short, long, default_value_t = 8082 as u16)]
     port: u16,
 }
-
-use std::io::prelude::*;
-use std::io::BufReader;
-use std::process::{Command, Stdio};
-
-use serde::Deserialize;
 
 #[derive(Deserialize)]
 struct Query {
@@ -61,7 +58,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(command.clone()))
             .service(root)
     })
-    .bind(format!("{}:{}", addr, port))?
+    .bind(format!("{addr}:{port}"))?
     .run()
     .await
 }
