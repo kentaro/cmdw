@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
-serde = { version = "1", features = ["derive"] }
-env_logger = "0.10.0"
 clap = { version = "4.1.8", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+tinytemplate = "1.2.1"
