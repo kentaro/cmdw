@@ -77,7 +77,7 @@ async fn root(query: web::Query<Query>, command: web::Data<String>) -> impl Resp
     };
 
     HttpResponse::Ok()
-        .content_type("text/plain")
+        .content_type("text/plain; charset=utf8")
         .body(response_string)
 }
 
