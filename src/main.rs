@@ -31,7 +31,7 @@ struct Context {
 }
 
 #[get("/")]
-async fn index(
+async fn index_handler(
     query: web::Query<Query>,
     tmpl: web::Data<TinyTemplate<'_>>,
     command: web::Data<String>,
@@ -56,7 +56,7 @@ async fn index(
 }
 
 #[get("/command")]
-async fn root(query: web::Query<Query>, command: web::Data<String>) -> impl Responder {
+async fn command_handler(query: web::Query<Query>, command: web::Data<String>) -> impl Responder {
     let response_string = match query.args.clone() {
         Some(args) => {
             let mut child = Command::new(command.to_string())
@@ -98,8 +98,8 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .app_data(web::Data::new(tt))
             .app_data(web::Data::new(command.clone()))
-            .service(index)
-            .service(root)
+            .service(index_handler)
+            .service(command_handler)
     })
     .bind(format!("{addr}:{port}"))?
     .run()
